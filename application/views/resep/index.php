@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <h3 class="box-title">Resep Dessert</h3>
                 </div><!-- /.box-header -->
               <div class="box-body">
-              <?php echo form_open_multipart('index.php/resep/add');  ?>
+              <?php echo form_open_multipart('resep/add');  ?>
                
                     <div class="form-group">
                     <label>Nama Resep</label>
@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="form-group">
                     <label>Bahan</label>
-                    <textarea name="nama_resep" class="form-control" type="text"  >
+                    <textarea name="bahan" class="form-control" type="text"  >
                     </textarea>
                     </div>
                     <div class="form-group">
@@ -83,11 +83,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <tr>
                     <td> <?php echo $no; ?> </td>
                     <td> <?php echo $data->nama_resep;?> </td>
-                    <td> <?php echo $data->gambar ?> </td>
+                    <td> <?php echo "<img src='".$data->gambar."'style='width:300px'>"; ?> </td>
                     <td> <?php echo $data->keterangan;?> </td>
                     <td> <?php echo $data->bahan ?> </td>
                     <td> <?php echo $data->tatacara;?> </td>
-                    <td>  <a href="index.php/resep/edit/<?php echo $data->id; ?>"><i class="fa fa-fw fa-edit"></i> </a> | <a href="index.php/resep/delete/<?php echo $data->id                             ?>"onClick="return doconfirm();">
+                    <td>  <a href="detail/<?php echo $data->id; ?>"><i class="fa fa-fw fa-edit"></i> </a> | <a href="index.php/resep/delete/<?php echo $data->id                             ?>"onClick="return doconfirm();">
                 <i class=" fa fa-fw fa-remove"></i> </a> </td>
                    
                 </tr>

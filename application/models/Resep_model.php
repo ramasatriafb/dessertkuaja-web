@@ -7,8 +7,6 @@ class Resep_model extends CI_Model {
 
     
     public $nama_resep;
-    public $gambar;
-    public $image;
     public $keterangan;
     public $bahan;
     public $tata_cara;
@@ -22,15 +20,18 @@ class Resep_model extends CI_Model {
         ];
     }
 
+   
     public function resep_all_data()
     {
-        return $this->db->distinct()->select('b.resep_id as id,b.nama_resep as nama_resep, b.gambar as gambar, b.keterangan as keterangan,b.bahan as bahan, b.tata_cara as tatacara')-> from ('kategori_resep a, resep_dessert b, kategori c, user_profile d, user_gejala e')
-        ->where('a.resep_id = b.resep_id')->where('a.kategori_id = c.kategori_id')->get()->result();
+        return $this->db->distinct()->select('b.resep_id as id,b.nama_resep as nama_resep, b.gambar as gambar, b.keterangan as keterangan,b.bahan as bahan, b.tata_cara as tatacara')-> from ('resep_dessert b')->get()->result();
     }    
+
+    // return $this->db->distinct()->select('b.resep_id as id,b.nama_resep as nama_resep, b.gambar as gambar, b.keterangan as keterangan,b.bahan as bahan, b.tata_cara as tatacara')-> from ('kategori_resep a, resep_dessert b, kategori c, user_profile d, user_gejala e')
+    //     ->where('a.resep_id = b.resep_id')->where('a.kategori_id = c.kategori_id')->get()->result();
 
     public function getById($id)
     {
-        return $this->db->get_where($this->_table, ["resep_id" => $id])->row();
+        return $this->db->get_where($this->_table, ["resep_id" => $id])->result();
     }
 
     public function save($lokasi)
@@ -44,11 +45,11 @@ class Resep_model extends CI_Model {
         $this->db->insert($this->_table, $this);
     }
 
-    public function update($id)
+    public function update($id,$lokasi)
     {
         $post = $this->input->post();
         $this->nama_resep = $post["nama_resep"];
-        $this->gambar = $post["gambar"];
+        $this->gambar = $lokasi;
         $this->keterangan = $post["keterangan"];
         $this->bahan = $post["bahan"];
         $this->tata_cara = $post["tata_cara"];
