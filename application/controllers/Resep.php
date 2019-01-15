@@ -14,7 +14,7 @@ class Resep extends CI_Controller {
     public function add()
     {
         $post = $this->input->post();
-        $config['upload_path']='uploads';
+        $config['upload_path']='C:\xampp\htdocs\dessertkuaja-rest-api\uploads';
 		$config['allowed_types']='jpg|png|jpeg|pdf';
 		$config['max_size']='2000';
 		$config['file_name'] = $post["nama_resep"];
@@ -30,7 +30,7 @@ class Resep extends CI_Controller {
 				$gambar=$this->upload->data();
 				$data['upload_data']=$gambar;
 				if($gambar['file_name']){
-				$lokasi="/dessertkuaja-web/uploads/".$gambar['file_name'];
+                $lokasi="/dessertkuaja-rest-api/uploads/".$gambar['file_name'];
             }
         }
         $resep = $this->Resep_model;
@@ -60,7 +60,8 @@ class Resep extends CI_Controller {
         if (!isset($id)) redirect('resep');
         
         $post = $this->input->post();
-        $config['upload_path']='uploads';
+        // var_dump(FCPATH);die();
+        $config['upload_path']='C:\xampp\htdocs\dessertkuaja-rest-api\uploads';
 		$config['allowed_types']='jpg|png|jpeg|pdf';
 		$config['max_size']='2000';
 		$config['file_name'] = $post["nama_resep"];
@@ -76,7 +77,7 @@ class Resep extends CI_Controller {
 				$gambar=$this->upload->data();
 				$data['upload_data']=$gambar;
 				if($gambar['file_name']){
-				$lokasi="/dessertkuaja-web/uploads/".$gambar['file_name'];
+				$lokasi="/dessertkuaja-rest-api/uploads/".$gambar['file_name'];
             }
         }
 
@@ -104,10 +105,28 @@ class Resep extends CI_Controller {
     {
         if (!isset($id)) show_404();
         
-        if ($this->product_model->delete($id)) {
+        if ($this->Resep_model->delete($id)) {
             redirect(site_url('admin/products'));
         }
     }
    
-	
+	public function kategori(){
+		$this->data['title'] = "Kategori Resep Dessert";
+        $this->data['resepdata'] = $this->Resep_model->resep_all_data();
+        $this->data['resepkategori'] = $this->Resep_model->resep_allDataKategori();
+        $this->data['kategori'] = $this->Resep_model->kategori();
+        
+        $this->load->view('resep/kategori',$this->data);
+    }
+
+    public function add_kategori(){
+        // $post = $this->input->post();
+        // var_dump($post["resep_id"]);
+        // var_dump($post["kategori_id"]);
+        // die();
+        $resep = $this->Resep_model;
+            $resep->addKategori();
+        
+       redirect('resep/kategori');
+    }
 }

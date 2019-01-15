@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
 
             <li class="treeview">
-              <a href="#">
+              <a href="<?php echo base_url('/index.php/resep/kategori')?>">
                 <i class="fa fa-gears"></i>
                 <span>Resep Kategori</span>
               </a>
